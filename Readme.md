@@ -2,7 +2,7 @@
 
 `mvn clean package -Pnogpu -Djar.tag=nogpu`
 
-### Build a no-Gpu support version
+### Build a Gpu support version
 
 `mvn clean package -Pgpu -Djar.tag=gpu`
 
