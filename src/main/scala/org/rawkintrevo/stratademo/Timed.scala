@@ -17,7 +17,7 @@ trait Timed {
 
   def main(args: Array[String]): Unit = {
 
-    val times = new Array[Double](2)
+    val times = new Array[Double](1)
     for (i <- 0 until times.length) {
       times(i) = time { doStuff() }._1 * 1E-9
     }
