@@ -4,3 +4,6 @@ dependency-reduced-pom.xml
 stratademo.iml
 target
 libs/*
+output.txt
+stratademo
+stratademo.tar.gz

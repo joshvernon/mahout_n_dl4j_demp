@@ -19,3 +19,13 @@ download tarball and unzip.
 
 `bin/run_examples.sh >> output.txt`
 
+`ssh nimbix@youraddress`
+
+`wget https://github.com/rawkintrevo/mahout_n_dl4j_demp/releases/download/stratademo/stratademo.tar.gz`
+`tar -xzf *`
+`cd *`
+`chmod +x bin/*`
+`bin/full-demo.sh`
+
+From your machine copy the output of the timers:
+`scp nimbix@remotehost.edu:foobar.txt ./output.txt`

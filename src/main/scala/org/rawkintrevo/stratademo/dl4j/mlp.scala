@@ -45,8 +45,8 @@ object mlp extends Timed{
     }
     println("Parallelizing Datasets")
 
-    val trainData = sc.parallelize(trainDataList);
-    val testData = sc.parallelize(testDataList);
+    val trainData = sc.parallelize(trainDataList, 8);
+    val testData = sc.parallelize(testDataList, 8);
 
 
     println(s"training: ${trainData.count()} obs, testsing: ${testData.count()} obs")

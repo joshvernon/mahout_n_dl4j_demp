@@ -1,7 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-export SPARK_HOME=/home/rawkintrevo/gits/spark-1.6.3-bin-hadoop2.4
-export DEMO_HOME=/home/rawkintrevo/gits/stratademo
 
 echo "Downloading Eigenfaces Data"
 mkdir data
@@ -13,7 +11,7 @@ cd ..
 echo "Simple Example - Non Accelerated"
 $SPARK_HOME/bin/spark-submit \
               --class org.rawkintrevo.stratademo.mahout.Simple \
-              --master local[*] \
+              --master $MASTER \
               --conf spark.kryo.referenceTracking=false \
               --conf spark.kryo.registrator=org.apache.mahout.sparkbindings.io.MahoutKryoRegistrator \
               --conf spark.kryoserializer.buffer=32k \
@@ -26,20 +24,22 @@ $SPARK_HOME/bin/spark-submit \
 echo "Eigenfaces Example - Non Accelerated"
 $SPARK_HOME/bin/spark-submit \
               --class org.rawkintrevo.stratademo.mahout.Eigenfaces \
-              --master local[*] \
+              --master $MASTER \
               --conf spark.kryo.referenceTracking=false \
               --conf spark.kryo.registrator=org.apache.mahout.sparkbindings.io.MahoutKryoRegistrator \
               --conf spark.kryoserializer.buffer=32k \
               --conf spark.kryoserializer.buffer.max=600m \
               --conf spark.serializer=org.apache.spark.serializer.KryoSerializer \
+              --conf spark.executor.memory  4g \
               $DEMO_HOME/libs/strata-demo-1.0-SNAPSHOT-nogpu.jar
 
 echo "MLP Example - Non Accelerated"
 $SPARK_HOME/bin/spark-submit \
-              --class org.rawkintrevo.stratademo.mahout.mlp \
-              --master local[*] \
+              --class org.rawkintrevo.stratademo.dl4j.mlp \
+              --master $MASTER \
               --conf spark.kryo.referenceTracking=false \
               --conf spark.kryo.registrator=org.nd4j.Nd4jRegistrator \
+              --conf spark.executor.memory  4g \
               --conf spark.serializer=org.apache.spark.serializer.KryoSerializer \
               $DEMO_HOME/libs/strata-demo-1.0-SNAPSHOT-nogpu.jar
 
@@ -47,7 +47,7 @@ $SPARK_HOME/bin/spark-submit \
 echo "Simple Example - Accelerated"
 $SPARK_HOME/bin/spark-submit \
               --class org.rawkintrevo.stratademo.mahout.Simple \
-              --master local[*] \
+              --master $MASTER \
               --conf spark.kryo.referenceTracking=false \
               --conf spark.kryo.registrator=org.apache.mahout.sparkbindings.io.MahoutKryoRegistrator \
               --conf spark.kryoserializer.buffer=32k \
@@ -60,20 +60,22 @@ $SPARK_HOME/bin/spark-submit \
 echo "Eigenfaces Example - Accelerated"
 $SPARK_HOME/bin/spark-submit \
               --class org.rawkintrevo.stratademo.mahout.Eigenfaces \
-              --master local[*] \
+              --master $MASTER \
               --conf spark.kryo.referenceTracking=false \
               --conf spark.kryo.registrator=org.apache.mahout.sparkbindings.io.MahoutKryoRegistrator \
               --conf spark.kryoserializer.buffer=32k \
               --conf spark.kryoserializer.buffer.max=600m \
+              --conf spark.executor.memory  4g \
               --conf spark.serializer=org.apache.spark.serializer.KryoSerializer \
               $DEMO_HOME/libs/strata-demo-1.0-SNAPSHOT-gpu.jar
 
 echo "MLP Example - Accelerated"
 $SPARK_HOME/bin/spark-submit \
-              --class org.rawkintrevo.stratademo.mahout.mlp \
-              --master local[*] \
+              --class org.rawkintrevo.stratademo.dl4j.mlp \
+              --master $MASTER \
               --conf spark.kryo.referenceTracking=false \
               --conf spark.kryo.registrator=org.nd4j.Nd4jRegistrator \
               --conf spark.serializer=org.apache.spark.serializer.KryoSerializer \
+              --conf spark.executor.memory  4g \
               $DEMO_HOME/libs/strata-demo-1.0-SNAPSHOT-gpu.jar
 
